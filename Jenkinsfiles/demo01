@@ -1,0 +1,5 @@
+stage 'Stage 01'
+echo 'Hello World!'
+
+stage 'Stage 02'
+echo 'Hello World again'

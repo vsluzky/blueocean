@@ -1,0 +1,34 @@
+//node {
+   stage 'Stage 01'
+//   echo 'Hello World once'
+//   stage 'Stage 02'
+//   echo 'Hello World twice'
+//}
+
+/*input message: "enter number",
+    parameters:[[$class:'StringParameterDefinition',
+    defaultValue: '2',
+    description: 'where to fail'.\,
+    name: 'secret'
+    ]]
+*/
+def execs = [:] // creates empty map
+for (int i=0; i<13; ++i) {
+    def index = i
+    execs[i] = {
+         node {
+            echo "Start executing for $index"
+            sleep index * 2 + 5
+            if (index > 20) {
+                assert false
+            }
+
+            echo "Stop executing for $index"
+        }
+    }
+}
+execs.failFast = true
+parallel execs
+
+stage 'Stage 02'
+echo 'Hello World once'
